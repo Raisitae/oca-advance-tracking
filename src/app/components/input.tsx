@@ -3,10 +3,10 @@ import React, { useState } from "react";
 type InputProps = {
   label: string;
   type: string;
+  onValueChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   validate: (value: string) => string;
   disabled?: boolean;
   placeholder?: string;
-  onValueChange?: (value: string) => void;
   classname?: string;
 };
 
@@ -37,7 +37,7 @@ const Input: React.FC<InputProps> = ({
 
   return (
     <div className={classname}>
-      <label className="w-full text-xs font-medium tracking-wide leading-4 text-zinc-600">
+      <label className="w-full text-s font-medium tracking-wide leading-4  text-neutral-200">
         {label}
       </label>
       <input
