@@ -3,7 +3,7 @@ import React, { useState } from "react";
 type InputProps = {
   label: string;
   type: string;
-  onValueChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onValueChange: (value: string) => void;
   validate: (value: string) => string;
   disabled?: boolean;
   placeholder?: string;
@@ -23,7 +23,7 @@ const Input: React.FC<InputProps> = ({
   const [value, setValue] = useState("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value;
+    const newValue = event.target.value as string;
     onValueChange(newValue);
     setValue(newValue);
   };
