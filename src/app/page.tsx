@@ -13,6 +13,14 @@ export default function Home() {
   let [trackingInfo, setTrackingInfo] = useState<any>(null);
   let [trackingArray, setTrackingArray] = useState<any[]>([]);
   let track = [];
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleTheme = () => {
+    setIsDarkMode((prevMode) => !prevMode);
+    localStorage.theme = isDarkMode ? "light" : "dark";
+    document.documentElement.classList.toggle("dark", isDarkMode);
+  };
+
   const onChangeCuil = (value: string) => {
     setCuil(value);
   };
@@ -55,82 +63,115 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-purple-950">
-      <div className="z-10 w-full flex-col items-center justify-between text-sm lg:flex">
-        <h1 className="text-purple-200 text-xl font-medium mb-8">
-          Obtené un seguimiento detallado de tu envio de OCA
-        </h1>
-        <form onSubmit={handleSubmit} className="w-full max-w-md">
-          <Input
-            label="Ingrese su cuil"
-            type="dni"
-            validate={(value: string) =>
-              value.length > 1 ? "" : "Debe ingresar su cuil"
-            }
-            onValueChange={onChangeCuil}
-            classname="mt-4"
-          />
-          <Input
-            label="Ingrese su dni"
-            type="dni"
-            validate={(value: string) =>
-              value.length > 1 ? "" : "Debe ingresar su DNI"
-            }
-            onValueChange={onChangeDni}
-            classname="mt-4"
-          />
-          <Input
-            label="Ingrese su numero de seguimiento"
-            type="dni"
-            validate={(value: string) =>
-              value.length > 1 ? "" : "Debe ingresar su numero de seguimiento"
-            }
-            onValueChange={onChangeTracking}
-            classname="mt-4"
-          />
-          <Button
-            text="Enviar"
-            type="submit"
-            onClick={onHandleClick}
-            classname="mt-8"
-          />
-        </form>
+    <main>
+      <div className="bg-purple-400 text-white py-4 px-6 sm:px-8 flex justify-between">
+        <h1 className="text-2xl font-bold">Seguimiento de encomiendas Oca</h1>
+        <button
+          className={`px-4 py-2 rounded ${
+            isDarkMode ? "bg-gray-800 text-white" : "bg-gray-200 text-gray-800"
+          }`}
+          onClick={() => (localStorage.theme = "light")}>
+          {isDarkMode ? "Light Mode" : "Dark Mode"}
+        </button>
+      </div>
+      <div className="max-w-6xl mx-auto p-6 sm:p-8">
+        <div className="bg-white dark:bg-gray-950 rounded-lg shadow-sm">
+          <div className="px-6 py-8 sm:px-10 sm:py-12">
+            <h2 className="text-2xl font-bold mb-6">
+              {" "}
+              Obtené un seguimiento detallado de tu envio de OCA
+            </h2>
+            <div className="grid gap-2">
+              <form
+                onSubmit={handleSubmit}
+                className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <Input
+                  label="Cuil"
+                  type="Cuil"
+                  validate={(value: string) =>
+                    value.length > 1 ? "" : "Debe ingresar su cuil"
+                  }
+                  onValueChange={onChangeCuil}
+                  classname="mt-4"
+                />
+                <Input
+                  label="Dni"
+                  type="dni"
+                  validate={(value: string) =>
+                    value.length > 1 ? "" : "Debe ingresar su DNI"
+                  }
+                  onValueChange={onChangeDni}
+                  classname="mt-4"
+                />
+                <Input
+                  label="Número de seguimiento"
+                  type="tracknumber"
+                  validate={(value: string) =>
+                    value.length > 1
+                      ? ""
+                      : "Debe ingresar su numero de seguimiento"
+                  }
+                  onValueChange={onChangeTracking}
+                  classname="mt-4"
+                />
+                <div className="mt-6">
+                  <Button
+                    text="Enviar"
+                    type="submit"
+                    onClick={onHandleClick}
+                    classname="bg-purple-400 hover:bg-purple-500 text-white px-8 py-3 rounded-md font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-50"
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
         {trackingArray.length !== 0 && (
-          <div className="overflow-x-auto mt-12">
-            <table className="w-full table-auto border-collapse border border-white">
-              <thead>
-                <tr className="bg-purple-800 text-white">
-                  <th className="px-4 py-2">Id</th>
-                  <th className="px-4 py-2">NumeroEnvio</th>
-                  <th className="px-4 py-2">Descripcion Motivo</th>
-                  <th className="px-4 py-2">Descripcion Estado</th>
-                  <th className="px-4 py-2">SUC</th>
-                  <th className="px-4 py-2">Fecha</th>
-                </tr>
-              </thead>
-              <tbody>
-                {trackingArray.map((item: any, index: number) => (
-                  <tr key={index} className="bg-purple-900 text-white">
-                    <td className="border border-white px-4 py-2">{item.Id}</td>
-                    <td className="border border-white px-4 py-2">
-                      {item.NumeroEnvio}
-                    </td>
-                    <td className="border border-white px-4 py-2">
-                      {item.Descripcion_Motivo}
-                    </td>
-                    <td className="border border-white px-4 py-2">
-                      {item.Desdcripcion_Estado}
-                    </td>
-                    <td className="border border-white px-4 py-2">
-                      {item.SUC}
-                    </td>
-                    <td className="border border-white px-4 py-2">
-                      {item.fecha}
-                    </td>
+          <div className="border-t dark:border-gray-800">
+            <div className="px-6 py-8 sm:px-10 sm:py-12">
+              <h2 className="text-2xl font-bold mb-4 text-purple-400">
+                Oca Package Tracking Service
+              </h2>
+              <table className=" border-none ">
+                <thead>
+                  <tr className="bg-purple-400 text-white">
+                    <th className="px-4 py-2">Id</th>
+                    <th className="px-4 py-2">NumeroEnvio</th>
+                    <th className="px-4 py-2">Descripcion Motivo</th>
+                    <th className="px-4 py-2">Descripcion Estado</th>
+                    <th className="px-4 py-2">SUC</th>
+                    <th className="px-4 py-2">Fecha</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {trackingArray.map((item: any, index: number) => (
+                    <tr
+                      key={index}
+                      className=" text-white  border-none  border-y">
+                      <td className="border border-white px-4 py-2  border-x-0  border-y">
+                        {item.Id}
+                      </td>
+                      <td className="border border-white px-4 py-2  border-x-0  border-y ">
+                        {item.NumeroEnvio}
+                      </td>
+                      <td className="border border-white px-4 py-2  border-x-0   border-y">
+                        {item.Descripcion_Motivo}
+                      </td>
+                      <td className="border border-white px-4 py-2  border-x-0   border-y">
+                        {item.Desdcripcion_Estado}
+                      </td>
+                      <td className="border border-white px-4 py-2  border-x-0   border-y">
+                        {item.SUC}
+                      </td>
+                      <td className="border border-white px-4 py-2  border-x-0   border-y">
+                        {item.fecha}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
       </div>
