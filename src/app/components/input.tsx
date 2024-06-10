@@ -37,7 +37,7 @@ const Input: React.FC<InputProps> = ({
 
   return (
     <div className={classname}>
-      <label className="w-full text-s font-medium tracking-wide leading-4  text-neutral-200">
+      <label className="w-full text-s font-medium tracking-wide leading-4 dark:text-neutral-200 text-neutral-700">
         {label}
       </label>
       <input
