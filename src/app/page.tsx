@@ -84,7 +84,7 @@ export default function Home() {
       <div className="max-w-6xl mx-auto p-6 sm:p-8 min-h-full bg-white dark:bg-gray-900">
         <div className="bg-slate-200 dark:bg-gray-950 rounded-lg shadow-sm">
           <div className="px-6 py-8 sm:px-10 sm:py-12">
-            <h2 className="text-2xl font-bold mb-6 dark:text-white bg-gray-950">
+            <h2 className="text-2xl font-bold mb-6 dark:text-white text-gray-950">
               Obtené un seguimiento detallado de tu envio de OCA
             </h2>
             <div className="grid gap-2">
