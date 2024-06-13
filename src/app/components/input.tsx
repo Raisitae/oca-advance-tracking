@@ -53,9 +53,10 @@ const Input: React.FC<InputProps> = ({
           error
             ? "border-red-700 border-solid leading-[143%] text-zinc-600"
             : ""
-        } hover:border-sky-600  active:border-blue-800 active:border-[3px] active:text-zinc-600
-        focus:outline-blue-800 focus:border-[3px] focus:text-zinc-600
-        placeholder:border-slate-400 placeholder:text-zinc-600`}
+        } hover:border-purple-600  active:border-purple-400 active:border-[3px] active:text-zinc-600
+        focus:outline-purple-400 focus:border-[3px] focus:text-zinc-600
+        placeholder:border-slate-400 placeholder:text-zinc-600
+        `}
       />
 
       {error && (

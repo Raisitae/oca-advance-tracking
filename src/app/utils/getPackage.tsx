@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 interface GetPackageParams {
   NroDocumentoCliente: string;
@@ -18,6 +19,15 @@ export default async function fetchTrackingInfo({
     return response.data.result;
   } catch (error) {
     console.error("Error:", error);
+    toast.error(`${error}`, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
     throw new Error("Network response was not ok");
   }
 }
